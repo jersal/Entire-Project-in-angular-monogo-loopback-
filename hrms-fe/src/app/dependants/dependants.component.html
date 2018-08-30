@@ -1,0 +1,485 @@
+<app-header></app-header>
+<app-aislogo></app-aislogo>
+<div class="container">
+    <div class="board">
+        <div class="tab-content">
+            <msw-navbar></msw-navbar>
+            <form #dependantsForm="ngForm" class="editForm" novalidate>
+                <div class="tab-pane fade in active">
+                    <h6 class="head text-center">{{title}}</h6>
+                    <br/>
+                    <div class='row'>
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10'>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        Children Info
+                                                    </a>
+                                                </h4>
+                                            </div>
+
+                                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                    <div class="row clearfix text-center">
+                                                        <div class="form-group">
+                                                            <input id="image" type="file" name="profile_photo" placeholder="Photo" class="profilePicEditorClass" id="file" (change)="handleFileInput($event)">
+                                                            <!-- <img src="../../assets/images/Avatar.jpg" class="img-circle" alt="car" width="150" height="130"> -->
+                                                            <img src="{{childImg_url}}" class="img-circle" alt="profile" width="150" height="130">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='row'>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childFullName">Full Name</label>
+                                                                <input class="form-control input-md" #childFullName="ngModel" required id="childFullName" name="childFullName" type="text"
+                                                                    placeholder="Full Name" [(ngModel)]="dependants.childFullName">
+                                                                <div *ngIf="childFullName?.touched || childFullName?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childFullName.errors?.required">Name Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childGender">Gender</label>
+                                                                <select class="form-control input-md" required id="childGender" required name="childGender" #childGender="ngModel" [(ngModel)]="dependants.childGender">
+
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let gen of Gender" [id]="gen.id" [value]="gen.gender">{{gen.gender}}</option>
+
+                                                                </select>
+                                                                <div *ngIf="childGender?.touched || childGender?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childGender.errors?.required">Gender Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childRelation">Relation</label>
+                                                                <input class="form-control input-md" #childRelation="ngModel" required id="childRelation" name="childRelation" type="text"
+                                                                    placeholder="Relation" [(ngModel)]="dependants.childRelation">
+                                                                <div *ngIf="childRelation?.touched || childRelation?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childRelation.errors?.required">Relation Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childDateOfBirth">Date Of Birth</label>
+                                                                <input class="form-control input-md" #childDateOfBirth="ngModel" required id="childDateOfBirth" name="childDateOfBirth" type="date"
+                                                                    placeholder="Date Of Birth" [(ngModel)]="dependants.childDateOfBirth">
+                                                                <div *ngIf="childDateOfBirth?.touched || childDateOfBirth?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childDateOfBirth.errors?.required">Valid Date Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childEmploy">Employed or Not</label>
+                                                                <select class="form-control input-md" id="childEmploy" required name="childEmploy" #childEmploy="ngModel" [(ngModel)]="dependants.childEmploy">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option value="Employed">Employed</option>
+                                                                    <option value="Not">Not</option>
+                                                                </select>
+                                                                <div *ngIf="childEmploy?.touched || childEmploy?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childEmploy.errors?.required">Employee Status Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childAis">Whether AIS or Not</label>
+                                                                <select class="form-control input-md" id="childAis" required name="childAis" (change)="childHandler($event)" #childAis="ngModel"
+                                                                    [(ngModel)]="dependants.childAis">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option value="AIS">AIS</option>
+                                                                    <option value="Not">Not</option>
+                                                                </select>
+                                                                <div *ngIf="childAis?.touched || childAis?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childAis.errors?.required">Employee Status Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="childJobType">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childService">Child Service</label>
+                                                                <select class="form-control input-md" id="childService" required name="childService" #childService="ngModel" [(ngModel)]="dependants.childService">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option value="IAS">IAS</option>
+                                                                    <option value="IPS">IPS</option>
+                                                                    <option value="IFS">IFS</option>
+                                                                </select>
+                                                                <div *ngIf="childService?.touched || childService?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childService.errors?.required">Service is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Child Starting -->
+                                                    <div class="row" *ngIf="childJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childCadre">Cadre</label>
+                                                                <select class="form-control input-md" id="childCadre" required name="childCadre" #childCadre="ngModel" [(ngModel)]="dependants.childCadre">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let cad of Cadre" [id]="cad.id" [value]="cad.cadre">{{cad.cadre}}</option>
+                                                                </select>
+                                                                <div *ngIf="childCadre?.touched || childCadre?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childCadre.errors?.required">Cadre is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childBatch">Batch</label>
+                                                                <input class="form-control input-md" #childBatch="ngModel" required id="childBatch" name="childBatch" type="text" placeholder="Batch"
+                                                                    [(ngModel)]="dependants.childBatch">
+                                                                <div *ngIf="childBatch?.touched || childBatch?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childBatch.errors?.required">Batch is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="childJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childDateOfAllotment">Date of allotment of service</label>
+                                                                <input class="form-control input-md" #childDateOfAllotment="ngModel" required id="childDateOfAllotment" name="childDateOfAllotment"
+                                                                    type="date" placeholder="Date of allotment of service" [(ngModel)]="dependants.childDateOfAllotment">
+                                                                <div *ngIf="childDateOfAllotment?.touched || childDateOfAllotment?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childDateOfAllotment.errors?.required">Date of allotment is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="childIdentityNumber">Identity Number</label>
+                                                                <input class="form-control input-md" #childIdentityNumber="ngModel" required id="childIdentityNumber" name="childIdentityNumber"
+                                                                    type="text" placeholder="Identity Number" [(ngModel)]="dependants.childIdentityNumber">
+                                                                <div *ngIf="childIdentityNumber?.touched || childIdentityNumber?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="childIdentityNumber.errors?.required">Identity Numberis Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Child Compleated -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        Parents Info
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+
+                                                    <!-- Parent Information -->
+                                                    <div class="row clearfix text-center">
+                                                        <div class="form-group">
+                                                            <input id="image" type="file" name="profile_photo" placeholder="Photo" class="profilePicEditorClass" id="file" (change)="handleParentInput($event)">
+                                                            <!-- <img src="../../assets/images/Avatar.jpg" class="img-circle" alt="car" width="150" height="130"> -->
+                                                            <img src="{{parentImg_url}}" class="img-circle" alt="profile" width="150" height="130">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentFullName">Full Name</label>
+                                                                <input class="form-control input-md" #parentFullName="ngModel" required id="parentFullName" name="parentFullName" type="text"
+                                                                    placeholder="Full Name" [(ngModel)]="dependants.parentFullName">
+                                                                <div *ngIf="parentFullName?.touched || parentFullName?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentFullName.errors?.required">Name Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentRelation">Relation</label>
+                                                                <input class="form-control input-md" #parentRelation="ngModel" required id="parentRelation" name="parentRelation" type="text"
+                                                                    placeholder="Relation" [(ngModel)]="dependants.parentRelation">
+                                                                <div *ngIf="parentRelation?.touched || parentRelation?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentRelation.errors?.required">Relation Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentDateOfBirth">Date Of Birth</label>
+                                                                <input class="form-control input-md" #parentDateOfBirth="ngModel" required id="parentDateOfBirth" name="parentDateOfBirth"
+                                                                    type="date" placeholder="Date Of Birth" [(ngModel)]="dependants.parentDateOfBirth">
+                                                                <div *ngIf="parentDateOfBirth?.touched || parentDateOfBirth?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentDateOfBirth.errors?.required">Valid Date Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentEmploy">Employed or Not</label>
+                                                                <select class="form-control input-md" id="parentEmploy" required name="parentEmploy" #parentEmploy="ngModel" [(ngModel)]="dependants.parentEmploy">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option value="Employed">Employed</option>
+                                                                    <option value="Not">Not</option>
+                                                                </select>
+                                                                <div *ngIf="parentEmploy?.touched || parentEmploy?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentEmploy.errors?.required">Employee Status Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentAis">Whether AIS or Not</label>
+                                                                <select class="form-control input-md" id="parentAis" required name="parentAis" (change)="parentHandler($event)" #parentAis="ngModel"
+                                                                    [(ngModel)]="dependants.parentAis">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option value="AIS">AIS</option>
+                                                                    <option value="Not">Not</option>
+                                                                </select>
+                                                                <div *ngIf="parentAis?.touched || parentAis?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentAis.errors?.required">AIS or Not Status Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="parentJobType">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentService">Child Service</label>
+                                                                <select class="form-control input-md" id="parentService" required name="parentService" #parentService="ngModel" [(ngModel)]="dependants.parentService">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let ser of Service" [id]="ser.id" [value]="ser.service">{{ser.service}}</option>
+                                                                </select>
+                                                                <div *ngIf="parentService?.touched || parentService?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentService.errors?.required">Service is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Parent Starting -->
+                                                    <div class="row" *ngIf="parentJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentCadre">Cadre</label>
+                                                                <select class="form-control input-md" id="parentCadre" required name="parentCadre" #parentCadre="ngModel" [(ngModel)]="dependants.parentCadre">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let cad of Cadre" [id]="cad.id" [value]="cad.cadre">{{cad.cadre}}</option>
+                                                                </select>
+                                                                <div *ngIf="parentCadre?.touched || parentCadre?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentCadre.errors?.required">Cadre is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentBatch">Batch</label>
+                                                                <input class="form-control input-md" #parentBatch="ngModel" required id="parentBatch" name="parentBatch" type="text" placeholder="Batch"
+                                                                    [(ngModel)]="dependants.parentBatch">
+                                                                <div *ngIf="parentBatch?.touched || parentBatch?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentBatch.errors?.required">Batch is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="parentJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentDateOfAllotment">Date of allotment of service</label>
+                                                                <input class="form-control input-md" #parentDateOfAllotment="ngModel" required id="parentDateOfAllotment" name="parentDateOfAllotment"
+                                                                    type="date" placeholder="Date of allotment of service" [(ngModel)]="dependants.parentDateOfAllotment">
+                                                                <div *ngIf="parentDateOfAllotment?.touched || parentDateOfAllotment?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentDateOfAllotment.errors?.required">Date of allotment is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="parentIdentityNumber">Identity Number</label>
+                                                                <input class="form-control input-md" #parentIdentityNumber="ngModel" required id="parentIdentityNumber" name="parentIdentityNumber"
+                                                                    type="text" placeholder="Identity Number" [(ngModel)]="dependants.parentIdentityNumber">
+                                                                <div *ngIf="parentIdentityNumber?.touched || parentIdentityNumber?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="parentIdentityNumber.errors?.required">Identity Numberis Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Parent Compleated -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingThree">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        Others Info
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    <!-- Others Information -->
+                                                    <div class="row clearfix text-center">
+                                                        <div class="form-group">
+                                                            <input id="image" type="file" name="profile_photo" placeholder="Photo" class="profilePicEditorClass" id="file" (change)="handleOthersInput($event)">
+                                                            <!-- <img src="../../assets/images/Avatar.jpg" class="img-circle" alt="car" width="150" height="130"> -->
+                                                            <img src="{{othersImg_url}}" class="img-circle" alt="profile" width="150" height="130">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersFullName">Full Name</label>
+                                                                <input class="form-control input-md" #othersFullName="ngModel" required id="othersFullName" name="othersFullName" type="text"
+                                                                    placeholder="Full Name" [(ngModel)]="dependants.othersFullName">
+                                                                <div *ngIf="othersFullName?.touched || othersFullName?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersFullName.errors?.required">Name Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersGender">Gender</label>
+                                                                <select class="form-control input-md" id="othersGender" required name="othersGender" #othersGender="ngModel" [(ngModel)]="dependants.othersGender">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let gen of Gender" [id]="gen.id" [value]="gen.gender">{{gen.gender}}</option>
+                                                                </select>
+                                                                <div *ngIf="othersGender?.touched || othersGender?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersGender.errors?.required">Gender Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersRelation">Relation</label>
+                                                                <input class="form-control input-md" #othersRelation="ngModel" required id="othersRelation" name="othersRelation" type="text"
+                                                                    placeholder="Realtion" [(ngModel)]="dependants.othersRelation">
+                                                                <div *ngIf="othersRelation?.touched || othersRelation?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersRelation.errors?.required">Relation Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersDateOfBirth">Date Of Birth</label>
+                                                                <input class="form-control input-md" #othersDateOfBirth="ngModel" required id="othersDateOfBirth" name="othersDateOfBirth"
+                                                                    type="date" placeholder="Date Of Birth" [(ngModel)]="dependants.othersDateOfBirth">
+                                                                <div *ngIf="othersDateOfBirth?.touched || othersDateOfBirth?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersDateOfBirth.errors?.required">Enter Valid Date</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6 '>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersEmploy">Employed or Not</label>
+                                                                <select class="form-control input-md" id="othersEmploy" required name="othersEmploy" (change)="othersHandler($event)" #othersEmploy="ngModel"
+                                                                    [(ngModel)]="dependants.othersEmploy">
+                                                                    <option value="" disabled>select Option</option>
+                                                                    <option value="Employed">Employed</option>
+                                                                    <option value="Not">Not</option>
+                                                                </select>
+                                                                <div *ngIf="othersEmploy?.touched || othersEmploy?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersEmploy.errors?.required">Employee Status Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="othersJobType">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6' *ngIf="othersAisService">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersService">Child Service</label>
+                                                                <select class="form-control input-md" id="othersService" required name="othersService" #othersService="ngModel" [(ngModel)]="dependants.othersService">
+                                                                    <option value="" disabled>Select Option</option>
+                                                                    <option *ngFor="let ser of Service" [id]="ser.id" [value]="ser.service">{{ser.service}}</option>
+                                                                </select>
+                                                                <div *ngIf="othersService?.touched || othersService?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersService.errors?.required">Service is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Others Starting -->
+                                                    <div class="row" *ngIf="othersJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersCadre">Cadre</label>
+                                                                <select class="form-control input-md" id="othersCadre" required name="othersCadre" #othersCadre="ngModel" [(ngModel)]="dependants.othersCadre">
+                                                                    <option value="" disabled>Cadre</option>
+                                                                    <option value="Kerala">Kerala</option>
+                                                                    <option value="Other">Other</option>
+                                                                </select>
+                                                                <div *ngIf="othersCadre?.touched || othersCadre?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersCadre.errors?.required">Cadre is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersBatch">Batch</label>
+                                                                <input class="form-control input-md" #othersBatch="ngModel" required id="othersBatch" name="othersBatch" type="text" placeholder="Batch"
+                                                                    [(ngModel)]="dependants.othersBatch">
+                                                                <div *ngIf="othersBatch?.touched || othersBatch?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersBatch.errors?.required">Batch is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="othersJobDetails">
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersDateOfAllotment">Date of allotment of service</label>
+                                                                <input class="form-control input-md" #othersDateOfAllotment="ngModel" required id="othersDateOfAllotment" name="othersDateOfAllotment"
+                                                                    type="date" placeholder="Date of allotment of service" [(ngModel)]="dependants.othersDateOfAllotment">
+                                                                <div *ngIf="othersDateOfAllotment?.touched || othersDateOfAllotment?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersDateOfAllotment.errors?.required">Date of allotment is Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="othersIdentityNumber">Identity Number</label>
+                                                                <input class="form-control input-md" #othersIdentityNumber="ngModel" required id="othersIdentityNumber" name="othersIdentityNumber"
+                                                                    type="text" placeholder="Identity Number" [(ngModel)]="dependants.othersIdentityNumber">
+                                                                <div *ngIf="othersIdentityNumber?.touched || othersIdentityNumber?.dirty" class="alert alert-danger">
+                                                                    <div *ngIf="othersIdentityNumber.errors?.required">Identity Numberis Required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- if AIS Employed Others Compleated -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center space-20">
+                        <button class="btn btn-outline-rounded btn-info" (click)="goToNext(dependantsForm)"> Submit
+                            <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

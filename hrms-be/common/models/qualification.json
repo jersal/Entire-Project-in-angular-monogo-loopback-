@@ -1,0 +1,37 @@
+{
+  "name": "qualification",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "eduqualification": {
+      "type": "string",
+      "required": true
+    },
+    "university": {
+      "type": "string",
+      "required": true
+    },
+    "institute": {
+      "type": "string",
+      "required": true
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "division": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

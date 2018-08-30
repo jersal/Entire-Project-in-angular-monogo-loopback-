@@ -1,0 +1,34 @@
+{
+  "name": "language",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "lang": {
+      "type": "string",
+      "required": true
+    },
+    "read": {
+      "type": "boolean",
+      "required": true
+    },
+    "write": {
+      "type": "boolean",
+      "required": true
+    },
+    "speak": {
+      "type": "boolean",
+      "required": true
+    },
+    "understand": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

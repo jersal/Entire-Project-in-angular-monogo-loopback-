@@ -1,0 +1,98 @@
+{
+  "name": "spouse",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "spousePrefix": {
+      "type": "string"
+    },
+    "spouseFullName": {
+      "type": "string"
+    },
+    "spouseGender": {
+      "type": "string"
+    },
+    "spouseDateOfBirth": {
+      "type": "string"
+    },
+    "spouseAdhaarNumber": {
+      "type": "string"
+    },
+    "spouseNationality": {
+      "type": "string"
+    },
+    "spouseEmail": {
+      "type": "string"
+    },
+    "spouseMobile": {
+      "type": "string"
+    },
+    "spousePhoto": {
+      "type": "string"
+    },
+    "spouseEmployment": {
+      "type": "string"
+    },
+    "spouseEmploymentType": {
+      "type": "string"
+    },
+    "spouseService": {
+      "type": "string"
+    },
+    "spouseCadre": {
+      "type": "string"
+    },
+    "spouseBatch": {
+      "type": "string"
+    },
+    "spouseDateOfAllotment": {
+      "type": "string"
+    },
+    "spouseIdentityNumber": {
+      "type": "string"
+    },
+    "spousePost": {
+      "type": "string"
+    },
+    "spouseMinistry": {
+      "type": "string"
+    },
+    "spouseDepartment": {
+      "type": "string"
+    },
+    "spouseOrganization": {
+      "type": "string"
+    },
+    "spouseIdentityNumberRetired": {
+      "type": "string"
+    },
+    "spousePostState": {
+      "type": "string"
+    },
+    "spouseMinistryState": {
+      "type": "string"
+    },
+    "spouseDepartmentState": {
+      "type": "string"
+    },
+    "spouseOrganizationState": {
+      "type": "string"
+    },
+    "spousePen": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

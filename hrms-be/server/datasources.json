@@ -1,0 +1,21 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "asidb": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "asidb",
+    "name": "asidb",
+    "connector": "mongodb"
+  },
+  "gridfs": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "asidb",
+    "name": "gridfs",
+    "provider": "gridfs",
+    "connector": "loopback-component-storage-gridfs"
+  }
+}

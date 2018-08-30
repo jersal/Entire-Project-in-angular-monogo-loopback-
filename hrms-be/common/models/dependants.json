@@ -1,0 +1,116 @@
+{
+  "name": "dependants",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "childFullName": {
+      "type": "string"
+    },
+    "childGender": {
+      "type": "string"
+    },
+    "childRelation": {
+      "type": "string"
+    },
+    "childDateOfBirth": {
+      "type": "string"
+    },
+    "childEmploy": {
+      "type": "string"
+    },
+    "childAis": {
+      "type": "string"
+    },
+    "childService": {
+      "type": "string"
+    },
+    "childCadre": {
+      "type": "string"
+    },
+    "childBatch": {
+      "type": "string"
+    },
+    "childDateOfAllotment": {
+      "type": "string"
+    },
+    "childIdentityNumber": {
+      "type": "string"
+    },
+    "parentFullName": {
+      "type": "string"
+    },
+    "parentRelation": {
+      "type": "string"
+    },
+    "parentDateOfBirth": {
+      "type": "string"
+    },
+    "parentEmploy": {
+      "type": "string"
+    },
+    "parentAis": {
+      "type": "string"
+    },
+    "parentService": {
+      "type": "string"
+    },
+    "parentCadre": {
+      "type": "string"
+    },
+    "parentBatch": {
+      "type": "string"
+    },
+    "parentDateOfAllotment": {
+      "type": "string"
+    },
+    "parentIdentityNumber": {
+      "type": "string"
+    },
+    "othersFullName": {
+      "type": "string"
+    },
+    "othersGender": {
+      "type": "string"
+    },
+    "othersRelation": {
+      "type": "string"
+    },
+    "othersDateOfBirth": {
+      "type": "string"
+    },
+    "othersEmploy": {
+      "type": "string"
+    },
+    "othersAis": {
+      "type": "string"
+    },
+    "othersService": {
+      "type": "string"
+    },
+    "othersCadre": {
+      "type": "string"
+    },
+    "othersBatch": {
+      "type": "string"
+    },
+    "othersDateOfAllotment": {
+      "type": "string"
+    },
+    "othersIdentityNumber": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

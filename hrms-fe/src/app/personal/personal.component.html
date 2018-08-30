@@ -1,0 +1,148 @@
+<app-header></app-header>
+<app-aislogo></app-aislogo>
+<div class="container">
+    <div class="board">
+        <div class="tab-content">
+            <msw-navbar></msw-navbar>
+            <form #personalForm="ngForm" class="editForm" novalidate>
+                <div class="tab-pane fade in active">
+                    <h6 class="head text-center">{{title}}</h6>
+                    <br/>
+                    <div class='row'>
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10'>
+                            <div class="row clearfix text-center">
+                                <div class="form-group">
+                                    <input id="image" type="file" name="profile_photo" placeholder="Photo" class="profilePicEditorClass" id="file" (change)="handleFileInput($event)">
+                                    <!-- <img src="../../assets/images/Avatar.jpg" class="img-circle" alt="car" width="150" height="130"> -->
+                                    <img src="{{img_url}}" class="img-circle" alt="profile" width="150" height="130">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="userPrefix">Prefix</label>
+                                        <select class="form-control input-md" id="userPrefix" required name="userPrefix" #userPrefix="ngModel" [(ngModel)]="personal.userPrefix">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let pre of Prefix" [id]="pre.id" [value]="pre.prefix">{{pre.prefix}}</option>
+                                        </select>
+                                        <div *ngIf="userPrefix?.touched || userPrefix?.dirty" class="alert alert-danger">
+                                            <div *ngIf="userPrefix.errors?.required">Prefix Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="fullName">Full Name</label>
+                                        <input class="form-control input-md" #fullName="ngModel" required pattern="[a-zA-Z ]*" id="fullName" name="fullName" type="text"
+                                            placeholder="Full Name" [(ngModel)]="personal.fullName">
+                                        <div *ngIf="fullName?.touched || fullName?.dirty" class="alert alert-danger">
+                                            <div *ngIf="fullName.errors?.required">Name Required</div>
+                                            <div *ngIf="fullName.errors?.pattern">Invalid Name</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="gender">Gender</label>
+                                        <select class="form-control" id="gender" required name="gender" #gender="ngModel" [(ngModel)]="personal.gender">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let gen of Gender" [id]="gen.id" [value]="gen.gender">{{gen.gender}}</option>
+                                        </select>
+                                        <div *ngIf="gender?.touched || gender?.dirty" class="alert alert-danger">
+                                            <div *ngIf="gender.errors?.required">Gender Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="dateOfBirth">Date Of Birth</label>
+                                        <input class="form-control input-md" #dateOfBirth="ngModel" required date id="dateOfBirth" name="dateOfBirth" type="date"
+                                            placeholder="Date Of Birth" [(ngModel)]="personal.dateOfBirth">
+                                        <div *ngIf="dateOfBirth?.touched || dateOfBirth?.dirty" class="alert alert-danger">
+                                            <div *ngIf="dateOfBirth.errors?.required">Date is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="aadhaarNumber">Aadhaar Number</label>
+                                        <input class="form-control input-md" #aadhaarNumber="ngModel" required minlength="12" maxlength="16" pattern="[0-9]{12,16}"
+                                            id="aadhaarNumber" name="aadhaarNumber" type="text" placeholder="Aadhaar Number"
+                                            [(ngModel)]="personal.aadhaarNumber">
+                                        <div *ngIf="aadhaarNumber?.touched || aadhaarNumber?.dirty" class="alert alert-danger">
+                                            <div *ngIf="aadhaarNumber.errors?.required">Aadhaar Number Required</div>
+                                            <div *ngIf="aadhaarNumber.errors?.pattern">Should have 12 to 16 Digits valid Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="penNumber">PEN Number</label>
+                                        <input class="form-control input-md" #penNumber="ngModel" required maxlength="8" pattern="[0-9]{6,8}" id="penNumber" name="penNumber"
+                                            type="text" placeholder="PEN Number" [(ngModel)]="personal.penNumber" minlength="6"
+                                            maxlength="8">
+                                        <div *ngIf="penNumber?.touched || penNumber?.dirty" class="alert alert-danger">
+                                            <div *ngIf="penNumber.errors?.required">PEN Number Required</div>
+                                            <div *ngIf="penNumber.errors?.pattern">Should have 6 to 8 Digits valid Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="email">Email</label>
+                                        <input class="form-control input-md" #email="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="email" name="email"
+                                            type="text" placeholder="Email" [(ngModel)]="personal.email">
+                                        <div *ngIf="email?.touched || email?.dirty" class="alert alert-danger">
+                                            <div *ngIf="email.errors?.required">Email Required</div>
+                                            <div *ngIf="email.errors?.pattern">Invalid Email</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="mobile">Mobile Number</label>
+                                        <input class="form-control input-md" #mobile="ngModel" required minlength="10" maxlength="10" pattern="[0-9]{10}" id="mobile"
+                                            name="mobile" type="text" placeholder="Mobile Number" [(ngModel)]="personal.mobile">
+                                        <div *ngIf="mobile?.touched || mobile?.dirty" class="alert alert-danger">
+                                            <div *ngIf="mobile.errors?.required">Mobile Required</div>
+                                            <div *ngIf="mobile.errors?.pattern">Should have 10 Digits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="maritialStatus">Maritial Status</label>
+                                        <select class="form-control" id="maritialStatus" required name="maritialStatus" #maritialStatus="ngModel" [(ngModel)]="personal.maritialStatus">
+                                            <option value="" disabled>Select Option</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Unmarried">Unmarried</option>
+
+                                        </select>
+                                        <div *ngIf="maritialStatus?.touched || maritialStatus?.dirty" class="alert alert-danger">
+                                            <div *ngIf="maritialStatus.errors?.required">maritialStatus Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-outline-rounded btn-info" [disabled]="!personalForm.valid" (click)="goToNext(personalForm)"> Submit
+                                    <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

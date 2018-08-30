@@ -1,0 +1,373 @@
+<app-header></app-header>
+<app-aislogo></app-aislogo>
+<div class="container">
+    <div class="board">
+        <div class="tab-content">
+            <msw-navbar></msw-navbar>
+            <form #spouseForm="ngForm" class="editForm" novalidate>
+                <div class="tab-pane fade in active">
+                    <h6 class="head text-center">{{title}}</h6>
+                    <br/>
+                    <div class='row'>
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10'>
+                            <div class="row clearfix text-center">
+                                <div class="form-group">
+                                     <input id="image" type="file" name="profile_photo" placeholder="Photo" class="profilePicEditorClass" id = "file" (change)="handleFileInput($event)">
+                                    <!-- <img src="../../assets/images/Avatar.jpg" class="img-circle" alt="car" width="150" height="130"> -->
+                                     <img src= "{{img_url}}" class="img-circle" alt="ProfPicture" width="150" height="130">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousePrefix">Prefix</label>
+                                        <select class="form-control input-md" id="spousePrefix" required name="spousePrefix" #spousePrefix="ngModel" [(ngModel)]="spouse.spousePrefix">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let pre of Prefix" [id]="pre.id" [value]="pre.prefix">{{pre.prefix}}</option>
+                                        </select>
+                                        <div *ngIf="spousePrefix?.touched || spousePrefix?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spousePrefix.errors?.required">Prefix Status Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseFullName">spouse Full Name</label>
+                                        <input class="form-control input-md" #spouseFullName="ngModel" required id="spouseFullName" name="spouseFullName" type="text"
+                                            placeholder="spouse Full Name" [(ngModel)]="spouse.spouseFullName">
+                                        <div *ngIf="spouseFullName?.touched || spouseFullName?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseFullName.errors?.required">full name is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseGender">spouse Gender</label>
+                                        <select class="form-control input-md" id="spouseGender" required name="spouseGender" #spouseGender="ngModel" [(ngModel)]="spouse.spouseGender">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let gen of Gender" [id]="gen.id" [value]="gen.gender">{{gen.gender}}</option>
+                                        </select>
+                                        <div *ngIf="spouseGender?.touched || spouseGender?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseGender.errors?.required">Gender is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseDateOfBirth">Date Of Birth</label>
+                                        <input class="form-control input-md" #spouseDateOfBirth="ngModel" required id="spouseDateOfBirth" name="spouseDateOfBirth"
+                                            type="date" placeholder="Date Of Birth" [(ngModel)]="spouse.spouseDateOfBirth">
+                                        <div *ngIf="spouseDateOfBirth?.touched || spouseDateOfBirth?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseDateOfBirth.errors?.required">Gender is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseAdhaarNumber">Adhaar Number</label>
+                                        <input class="form-control input-md" #spouseAdhaarNumber="ngModel" required minlength="12" maxlength="12" pattern="[0-9]{12}"
+                                            id="spouseAdhaarNumber" name="spouseAdhaarNumber" type="text" placeholder="Adhaar Number"
+                                            [(ngModel)]="spouse.spouseAdhaarNumber">
+                                        <div *ngIf="spouseAdhaarNumber?.touched || spouseAdhaarNumber?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseAdhaarNumber.errors?.required">Adhaar Numberis Required</div>
+                                            <div *ngIf="spouseAdhaarNumber.errors?.pattern">Should have 16 Digit valid Number</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseNationality">Nationality</label>
+                                        <input class="form-control input-md" #spouseNationality="ngModel" required id="spouseNationality" name="spouseNationality"
+                                            type="text" placeholder="Nationality" [(ngModel)]="spouse.spouseNationality">
+                                        <div *ngIf="spouseNationality?.touched || spouseNationality?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseNationality.errors?.required">Nationality is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseEmail">Email</label>
+                                        <input class="form-control input-md" #spouseEmail="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="spouseEmail"
+                                            name="spouseEmail" type="text" placeholder="Email" [(ngModel)]="spouse.spouseEmail">
+                                        <div *ngIf="spouseEmail?.touched || spouseEmail?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseEmail.errors?.required">Email is Required</div>
+                                            <div *ngIf="spouseEmail.errors?.pattern">Invalid email</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseMobile">Mobile Number</label>
+                                        <input class="form-control input-md" #spouseMobile="ngModel" required minlength="10" maxlength="10" pattern="[0-9]{10}" id="spouseMobile"
+                                            name="spouseMobile" type="text" placeholder="Mobile Number" [(ngModel)]="spouse.spouseMobile">
+                                        <div *ngIf="spouseMobile?.touched || spouseMobile?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseMobile.errors?.required">MobileNumberis Required</div>
+                                            <div *ngIf="spouseMobile.errors?.pattern">Should have 10 Digit valid Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousePhoto">Photo</label>
+                                        <input class="form-control input-md" #spousePhoto="ngModel" required id="spousePhoto" name="spousePhoto" type="file" placeholder="Photo"
+                                            [(ngModel)]="spouse.spousePhoto">
+                                        <div *ngIf="spousePhoto?.touched || spousePhoto?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spousePhoto.errors?.required">Photo is Required</div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseEmployment">Employment</label>
+                                        <select class="form-control input-md" id="spouseEmployment" required name="service" (change)="selectChangeHandler($event)"
+                                            #spouseEmployment="ngModel" [(ngModel)]="spouse.spouseEmployment">
+                                            <option value="" disabled>Select Employment</option>
+                                            <option value="Constitutional posts">Constitutional posts</option>
+                                            <option value="Employed">Employed</option>
+                                            <option value="Retired">Retired</option>
+                                            <option value="Not employed">Not employed</option>
+                                        </select>
+                                        <div *ngIf="spouseEmployment?.touched || spouseEmployment?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseEmployment.errors?.required">Employment is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if Constitutional Employed -->
+                            <div class="row" *ngIf="constitutional">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseConstitutionalPost">Spouse post</label>
+                                        <select class="form-control input-md" id="spouseConstitutionalPost" required name="spouseConstitutionalPost" #spouseConstitutionalPost="ngModel"
+                                            [(ngModel)]="spouse.spouseConstitutionalPost">
+                                            <option value="" disabled>Select Option</option>
+                                            <option value="Minister">Minister</option>
+                                            <option value="MP">MP</option>
+                                            <option value="MLA">MLA</option>
+                                            <option value="IFS">Judges</option>
+                                            <option value="IFS">IFS</option>
+                                        </select>
+                                        <div *ngIf="spouseConstitutionalPost?.touched || spouseConstitutionalPost?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseConstitutionalPost.errors?.required">Service is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- if Constitutional Employed -->
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6' *ngIf="employed">
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseEmploymentType">Employment Type</label>
+                                        <select class="form-control input-md" id="spouseEmploymentType" required name="spouseEmploymentType" (change)="jobTypeHandler($event)"
+                                            #spouseEmploymentType="ngModel" [(ngModel)]="spouse.spouseEmploymentType">
+                                            <option value="" disabled>Select Employment Type</option>
+                                            <option value="AIS">AIS</option>
+                                            <option value="Central GovernmentOrPSU">Central Government/PSU</option>
+                                            <option value="State GovernmentOrPSU">State Government/PSU</option>
+                                            <option value="PrivateInIndia">Private (in India) </option>
+                                            <option value="Self Employed">Self Employed </option>
+                                            <option value="PrivateOutSide">Private (outside India) </option>
+                                        </select>
+                                        <div *ngIf="spouseEmploymentType?.touched || spouseEmploymentType?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseEmploymentType.errors?.required">Employment type is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6' *ngIf="aisService">
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseService">Spouse Service</label>
+                                        <select class="form-control input-md" id="spouseService" required name="spouseService" #spouseService="ngModel" [(ngModel)]="spouse.spouseService">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let ser of Service" [id]="ser.id" [value]="ser.service">{{ser.service}}</option> 
+                                        </select>    
+                                        <div *ngIf="spouseService?.touched || spouseService?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseService.errors?.required">Service is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if AIS Employed Compleated -->
+                            <div class="row" *ngIf="aisService">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseCadre">Cadre</label>
+                                        <select class="form-control input-md" id="spouseCadre" required name="spouseCadre" #spouseCadre="ngModel" [(ngModel)]="spouse.spouseCadre">
+                                            <option value="" disabled>Cadre</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <div *ngIf="spouseCadre?.touched || spouseCadre?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseCadre.errors?.required">Cadre is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseBatch">Batch</label>
+                                        <input class="form-control input-md" #spouseBatch="ngModel" required id="spouseBatch" name="spouseBatch" type="text" placeholder="Batch"
+                                            [(ngModel)]="spouse.spouseBatch">
+                                        <div *ngIf="spouseBatch?.touched || spouseBatch?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseBatch.errors?.required">Batch is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="aisService">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseDateOfAllotment">Date of allotment of service</label>
+                                        <input class="form-control input-md" #spouseDateOfAllotment="ngModel" required id="spouseDateOfAllotment" name="spouseDateOfAllotment"
+                                            type="date" placeholder="Date of allotment of service" [(ngModel)]="spouse.spouseDateOfAllotment">
+                                        <div *ngIf="spouseDateOfAllotment?.touched || spouseDateOfAllotment?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseDateOfAllotment.errors?.required">Date of allotment is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseIdentityNumber">Identity Number</label>
+                                        <input class="form-control input-md" #spouseIdentityNumber="ngModel" required id="spouseIdentityNumber" name="spouseIdentityNumber"
+                                            type="text" placeholder="Identity Number" [(ngModel)]="spouse.spouseIdentityNumber">
+                                        <div *ngIf="spouseIdentityNumber?.touched || spouseIdentityNumber?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseIdentityNumber.errors?.required">Identity Numberis Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if AIS Employed Compleated -->
+                            <!-- if Employed Central -->
+                            <div class="row" *ngIf="central">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousePost">Post</label>
+                                        <input class="form-control input-md" #spousePost="ngModel" required id="spousePost" name="spousePost" type="text" placeholder="Post"
+                                            [(ngModel)]="spouse.spousePost">
+                                        <div *ngIf="spousePost?.touched || spousePost?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spousePost.errors?.required">Post is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseMinistry">Ministry</label>
+                                        <input class="form-control input-md" #spouseMinistry="ngModel" required id="spouseMinistry" name="spouseMinistry" type="text"
+                                            placeholder="Ministry" [(ngModel)]="spouse.spouseMinistry">
+                                        <div *ngIf="spouseMinistry?.touched || spouseMinistry?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseMinistry.errors?.required">Ministry is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="central">
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseDepartment">Department</label>
+                                        <input class="form-control input-md" #spouseDepartment="ngModel" required id="spouseDepartment" name="spouseDepartment" type="text"
+                                            placeholder="Department" [(ngModel)]="spouse.spouseDepartment">
+                                        <div *ngIf="spouseDepartment?.touched || spouseDepartment?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseDepartment.errors?.required">Department is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseOrganization">Organization</label>
+                                        <input class="form-control input-md" #spouseOrganization="ngModel" required id="spouseOrganization" name="spouseOrganization"
+                                            type="text" placeholder="Organization" [(ngModel)]="spouse.spouseOrganization">
+                                        <div *ngIf="spouseOrganization?.touched || spouseOrganization?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseOrganization.errors?.required">Organization is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseIdentityNumberRetired">Identity Number</label>
+                                        <input class="form-control input-md" #spouseIdentityNumberRetired="ngModel" required id="spouseIdentityNumberRetired" name="spouseIdentityNumberRetired"
+                                            type="text" placeholder="Identity Number" [(ngModel)]="spouse.spouseIdentityNumberRetired">
+                                        <div *ngIf="spouseIdentityNumberRetired?.touched || spouseIdentityNumberRetired?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseIdentityNumberRetired.errors?.required">Identity Number is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if Employed Central -->
+                            <!-- if Employed State -->
+                            <div class="row" *ngIf="state">
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousePostState">Post</label>
+                                        <input class="form-control input-md" #spousePostState="ngModel" required id="spousePostState" name="spousePostState" type="text"
+                                            placeholder="Post" [(ngModel)]="spouse.spousePostState">
+                                        <div *ngIf="spousePostState?.touched || spousePostState?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spousePostState.errors?.required">Post is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseMinistryState">Ministry</label>
+                                        <input class="form-control input-md" #spouseMinistryState="ngModel" required id="spouseMinistryState" name="spouseMinistryState"
+                                            type="text" placeholder="Ministry" [(ngModel)]="spouse.spouseMinistryState">
+                                        <div *ngIf="spouseMinistryState?.touched || spouseMinistryState?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseMinistryState.errors?.required">Ministry is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="state">
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseDepartmentState">Department</label>
+                                        <input class="form-control input-md" #spouseDepartmentState="ngModel" required id="spouseDepartmentState" name="spouseDepartmentState"
+                                            type="text" placeholder="Department" [(ngModel)]="spouse.spouseDepartmentState">
+                                        <div *ngIf="spouseDepartmentState?.touched || spouseDepartmentState?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseDepartmentState.errors?.required">Department is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseOrganizationState">Organization</label>
+                                        <input class="form-control input-md" #spouseOrganizationState="ngModel" required id="spouseOrganizationState" name="spouseOrganizationState"
+                                            type="text" placeholder="Organization" [(ngModel)]="spouse.spouseOrganizationState">
+                                        <div *ngIf="spouseOrganizationState?.touched || spouseOrganizationState?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spouseOrganizationState.errors?.required">Organization is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 col-sm-12 col-md-4 col-lg-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousePen">PEN </label>
+                                        <input class="form-control input-md" #spousePen="ngModel" required id="spousePen" name="spousePen" type="text" placeholder="Organization"
+                                            [(ngModel)]="spouse.spousePen">
+                                        <div *ngIf="spousePen?.touched || spousePen?.dirty" class="alert alert-danger">
+                                            <div *ngIf="spousePen.errors?.required">PEN is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if Employed State -->
+                            <div class="form-group text-center">
+                                <!-- <button class="btn btn-outline-rounded btn-default" (click)="goToPrevious(spouseForm)">
+                        <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span> Previous</button> -->
+                                <button class="btn btn-outline-rounded btn-info" [disabled]="!spouseForm.valid" (click)="goToNext(spouseForm)"> Submit
+                                    <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

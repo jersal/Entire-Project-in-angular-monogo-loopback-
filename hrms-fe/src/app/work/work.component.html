@@ -1,0 +1,455 @@
+<app-header></app-header>
+<app-aislogo></app-aislogo>
+<div class="container">
+    <div class="board">
+        <div class="tab-content">
+            <msw-navbar></msw-navbar>
+            <form #workForm="ngForm" class="editForm" novalidate>
+                <div class="tab-pane fade in active">
+                    <h4 class="head text-center">{{title}}</h4>
+                    <br/>
+                    <div class='row'>
+                        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10'>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="workService">Service</label>
+                                        <select class="form-control input-md" id="workService" required name="workService"
+                                         #workService="ngModel" [(ngModel)]="work.workService"  (change)="selectComboHandler($event)">
+                                         <option value="" disabled>Select Option</option>
+                                        <option *ngFor="let ser of Service" [id]="ser.id" [value]="ser.service">{{ser.service}}</option>
+                                        </select>
+                                        <div *ngIf="workService?.touched || workService?.dirty" class="alert alert-danger">
+                                            <div *ngIf="workService.errors?.required">Service Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="cadre">Cadre</label>
+                                        <select class="form-control input-md" id="cadre" required name="cadre" 
+                                        #cadre="ngModel" [(ngModel)]="work.cadre">
+                                        <option value="" disabled>Select Option</option>
+                                        <option *ngFor="let cad of Cadre" [id]="cad.id" [value]="cad.cadre">{{cad.cadre}}</option>
+                                        </select>
+                                        <div *ngIf="cadre?.touched || cadre?.dirty" class="alert alert-danger">
+                                            <div *ngIf="cadre.errors?.required">Cadre Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="batch">Batch</label>
+                                        <input class="form-control input-md" #batch="ngModel" required id="batch" name="batch" type="text" placeholder="Batch" [(ngModel)]="work.batch">
+                                        <div *ngIf="batch?.touched || batch?.dirty" class="alert alert-danger">
+                                            <div *ngIf="batch.errors?.required">Batch Required</div>
+                                            <div *ngIf="batch.errors?.pattern">Invalid Batch</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dateOfAllotment">Date of allotment of service</label>
+                                        <input class="form-control input-md" #dateOfAllotment="ngModel" required id="dateOfAllotment" name="dateOfAllotment" type="date"
+                                            placeholder="Date of allotment of service" [(ngModel)]="work.dateOfAllotment">
+                                        <div *ngIf="dateOfAllotment?.touched || dateOfAllotment?.dirty" class="alert alert-danger">
+                                            <div *ngIf="dateOfAllotment.errors?.required">Date Of Allotment Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="identityNumber">Identity Number</label>
+                                        <input class="form-control input-md" #identityNumber="ngModel" required maxlength="10" pattern="[0-9]{6,10}" id="identityNumber"
+                                            name="identityNumber" minlength="6" max-length="10" type="text" placeholder="Identity Number"
+                                            [(ngModel)]="work.identityNumber">
+                                        <div *ngIf="identityNumber?.touched || identityNumber?.dirty" class="alert alert-danger">
+                                            <div *ngIf="identityNumber.errors?.required">Identity Number Required</div>
+                                            <div *ngIf="identityNumber.errors?.pattern">Should have 6 to 10 Digits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="modeOfRecruitment">Mode of recruitment</label>
+                                        <select class="form-control input-md" id="modeOfRecruitment" required name="modeOfRecruitment" #modeOfRecruitment="ngModel"
+                                            [(ngModel)]="work.modeOfRecruitment">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let rec of isRecruitment" [id]="rec.id" [value]="rec.recruitment">{{rec.recruitment}}</option>
+
+                                        </select>
+                                        <div *ngIf="modeOfRecruitment?.touched || modeOfRecruitment?.dirty" class="alert alert-danger">
+                                            <div *ngIf="modeOfRecruitment.errors?.required">Mode Of Recruitment Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="state">State</label>
+                                        <select class="form-control input-md" id="state" required name="state" #state="ngModel" [(ngModel)]="work.state">
+                                                <option value="" disabled>Select Option</option>
+                                                <option *ngFor="let sta of State" [id]="sta.id"
+                                                 [value]="sta.state">{{sta.state}}</option>
+                                        </select>
+                                        <div *ngIf="state?.touched || state?.dirty" class="alert alert-danger">
+                                            <div *ngIf="state.errors?.required">State Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="district">District</label>
+                                        <input class="form-control input-md" #district="ngModel" required id="district" name="district" type="text" placeholder="Districte"
+                                            [(ngModel)]="work.district">
+                                        <div *ngIf="district?.touched || district?.dirty" class="alert alert-danger">
+                                            <div *ngIf="district.errors?.required">District Required </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="hometown">Home Town</label>
+                                        <input class="form-control input-md" #hometown="ngModel" required id="hometown" name="hometown" type="text" placeholder="Home Town"
+                                            [(ngModel)]="work.hometown">
+                                        <div *ngIf="hometown?.touched || hometown?.dirty" class="alert alert-danger">
+                                            <div *ngIf="hometown.errors?.required">Home Town Required </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-xs-12 col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label class="control-label" for="motherTongue">Mother Tongue</label>  
+                                <input class="form-control input-md" #motherTongue="ngModel" required id="motherTongue" name="motherTongue" type="text" placeholder="Mother Tongue" [(ngModel)]="work.motherTongue">   
+                                <div *ngIf = "motherTongue?.touched || motherTongue?.dirty" class="alert alert-danger">
+                                    <div *ngIf = "motherTongue.errors?.required">Mother Tongue Required </div>
+                                </div>
+                            </div>
+                        </div>   -->
+                                <!-- <div class="col-xs-12 col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label class="control-label" for="scaleOfPay">Grade/Scale of Pay</label> leave
+                                <input class="form-control input-md" #scaleOfPay="ngModel" required id="sleavealeOfPay" name="scaleOfPay" type="text" placeholder="Grade/Scale of Pay" [(ngModel)]="work.scaleOfPay">   
+                                <div *ngIf = "scaleOfPay?.touched || scaleOfPay?.dirty" class="alert alert-danger">
+                                    <div *ngIf = "scaleOfPay.errors?.required">Scale Of Pay Required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="specialPay">Special Pay</label>
+                                        <input class="form-control input-md" #specialPay="ngModel" required id="specialPay" name="specialPay" type="text" placeholder="Special Pay"
+                                            [(ngModel)]="work.specialPay">
+                                        <div *ngIf="specialPay?.touched || specialPay?.dirty" class="alert alert-danger">
+                                            <div *ngIf="specialPay.errors?.required">Special Pay Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="scaleOfPay">Grade/Scale of Pay</label>
+                                        <select class="form-control input-md" #scaleOfPay="ngModel" required id="scaleOfPay" name="scaleOfPay" type="text" placeholder="Grade/Scale of Pay"
+                                            [(ngModel)]="work.scaleOfPay">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let scale of isGrade" [id]="scale.id" [value]="scale.grade">{{scale.grade}}</option>
+                                        </select>
+                                        <div *ngIf="scaleOfPay?.touched || scaleOfPay?.dirty" class="alert alert-danger">
+                                            <div *ngIf="scaleOfPay.errors?.required">Scale Of Pay Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="position">Position</label>
+                                        <select class="form-control input-md" id="position" required name="position" #position="ngModel" [(ngModel)]="work.position"
+                                            (change)="selectChangeHandler($event)">
+                                            <option value="" disabled>Select Option</option>
+                                            <option *ngFor="let pos of Position" [id]="pos.id" [value]="pos.position">{{pos.position}}</option>
+                                        </select>
+                                        <div *ngIf="position?.touched || position?.dirty" class="alert alert-danger">
+                                            <div *ngIf="position.errors?.required">Position Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='workState'>
+                                <h4>for 1 and 2</h4>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="nameOfPost">Name of Post</label>
+                                        <input class="form-control input-md" #nameOfPost="ngModel" required id="nameOfPost" name="nameOfPost" type="text" placeholder="Name of Post"
+                                            [(ngModel)]="work.nameOfPost">
+                                        <div *ngIf="nameOfPost?.touched || nameOfPost?.dirty" class="alert alert-danger">
+                                            <div *ngIf="nameOfPost.errors?.required">Name Of Post Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="departmentOrPsu">Department/PSU</label>
+                                        <input class="form-control input-md" #departmentOrPsu="ngModel" required id="departmentOrPsu" name="departmentOrPsu" type="text"
+                                            placeholder="Department/PSU" [(ngModel)]="work.departmentOrPsu">
+                                        <div *ngIf="departmentOrPsu?.touched || departmentOrPsu?.dirty" class="alert alert-danger">
+                                            <div *ngIf="departmentOrPsu.errors?.required">Department/Psu Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="pinCode">Postal Address-PIN</label>
+                                        <input class="form-control input-md" #pinCode="ngModel" required pattern="[0-9]{6}" id="pinCode" name="pinCode" type="text"
+                                            placeholder="Pin Code" [(ngModel)]="work.pinCode">
+                                        <div *ngIf="pinCode?.touched || pinCode?.dirty" class="alert alert-danger">
+                                            <div *ngIf="pinCode.errors?.required">Pin-Code Required</div>
+                                            <div *ngIf="pinCode.errors?.pattern">Invalid Pin-Code</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='workState'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="officeTel">Office Tel</label>
+                                        <input class="form-control input-md" #officeTel="ngModel" required pattern="[0-9]{11}" id="officeTel" name="officeTel" type="text"
+                                            placeholder="Office Tel" [(ngModel)]="work.officeTel">
+                                        <div *ngIf="officeTel?.touched || officeTel?.dirty" class="alert alert-danger">
+                                            <div *ngIf="officeTel.errors?.required">officeTel Required</div>
+                                            <div *ngIf="officeTel.errors?.pattern">Invalid Office Tel. Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="workMobile">Mobile</label>
+                                        <input class="form-control input-md" #workMobile="ngModel" required minlength="10" maxlength="10" pattern="[0-9]{10}" id="workMobile"
+                                            name="workMobile" type="text" placeholder="Mobile" [(ngModel)]="work.workMobile">
+                                        <div *ngIf="workMobile?.touched || workMobile?.dirty" class="alert alert-danger">
+                                            <div *ngIf="workMobile.errors?.required">Mobile Required</div>
+                                            <div *ngIf="workMobile.errors?.pattern">Should have 10 Digits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="workEmail">Email</label>
+                                        <input class="form-control input-md" #workEmail="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="workEmail"
+                                            name="workEmail" type="text" placeholder="Email" [(ngModel)]="work.workEmail">
+                                        <div *ngIf="workEmail?.touched || workEmail?.dirty" class="alert alert-danger">
+                                            <div *ngIf="workEmail.errors?.required">Email Required</div>
+                                            <div *ngIf="workEmail.errors?.pattern">Invalid Email</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='workState'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="officeFax">Office Fax</label>
+                                        <input class="form-control input-md" #officeFaxStateEx="ngModel" required id="officeFaxStateEx" name="officeFaxStateEx" type="text"
+                                            placeholder="Office Fax" [(ngModel)]="work.officeFaxStateEx">
+                                        <div *ngIf="officeFax?.touched || officeFax?.dirty" class="alert alert-danger">
+                                            <div *ngIf="officeFax.errors?.required">officeFax Required</div>
+                                            <div *ngIf="officeFax.errors?.pattern">Invalid Office Fax.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="residencePh">Residence Ph</label>
+                                        <input class="form-control input-md" #residencePh="ngModel" required pattern="[0-9]{11}" id="residencePh" name="residencePh"
+                                            type="text" placeholder="Residence Ph" [(ngModel)]="work.residencePh">
+                                        <div *ngIf="residencePh?.touched || residencePh?.dirty" class="alert alert-danger">
+                                            <div *ngIf="residencePh.errors?.required">Residence Phone Required</div>
+                                            <div *ngIf="residencePh.errors?.pattern">Invalid Phone Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="residenceAddress">Residence Address</label>
+                                        <textarea class="form-control input-md" #residenceAddress="ngModel" id="residenceAddress" name="residenceAddress" type="text"
+                                            placeholder="Residence Address" [(ngModel)]="work.residenceAddress"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='central'>
+                                <h4>for Central Deputation</h4>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="startCentralDeputation">Date of starting the Central Deputation</label>
+                                        <input class="form-control input-md" #startCentralDeputation="ngModel" required id="startCentralDeputation" name="startCentralDeputation"
+                                            type="date" placeholder="Starting Date" [(ngModel)]="work.startCentralDeputation">
+                                        <div *ngIf="startCentralDeputation?.touched || startCentralDeputation?.dirty" class="alert alert-danger">
+                                            <div *ngIf="startCentralDeputation.errors?.required">start Central Deputation Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="ministryOrDepartmentOrPsu">Ministry/Department/PSU</label>
+                                        <input class="form-control input-md" #ministryOrDepartmentOrPsu="ngModel" required id="ministryOrDepartmentOrPsu" name="ministryOrDepartmentOrPsu"
+                                            type="text" placeholder="Department/PSU" [(ngModel)]="work.ministryOrDepartmentOrPsu">
+                                        <div *ngIf="ministryOrDepartmentOrPsu?.touched || ministryOrDepartmentOrPsu?.dirty" class="alert alert-danger">
+                                            <div *ngIf="ministryOrDepartmentOrPsu.errors?.required">ministry/Department/Psu Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='central'>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="nameOfPostCentral">Name of Post</label>
+                                        <input class="form-control input-md" #nameOfPostCentral="ngModel" required id="nameOfPostCentral" name="nameOfPostCentral"
+                                            type="text" placeholder="Name of Post" [(ngModel)]="work.nameOfPostCentral">
+                                        <div *ngIf="nameOfPostCentral?.touched || nameOfPostCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="nameOfPostCentral.errors?.required">Name Of Post Central is Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="pinCodeCentral">Postal Address-PIN</label>
+                                        <input class="form-control input-md" #pinCodeCentral="ngModel" required pattern="[0-9]{6}" id="pinCode" name="pinCodeCentral"
+                                            type="text" placeholder="Pin Code" [(ngModel)]="work.pinCodeCentral">
+                                        <div *ngIf="pinCodeCentral?.touched || pinCodeCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="pinCodeCentral.errors?.required">Pin-Code Required</div>
+                                            <div *ngIf="pinCodeCentral.errors?.pattern">Invalid Pin-Code</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='central'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="officeTelCentral">Office Tel</label>
+                                        <input class="form-control input-md" #officeTelCentral="ngModel" required id="officeTelCentral" name="officeTelCentral" type="text"
+                                            placeholder="Office Tel" [(ngModel)]="work.officeTelCentral">
+                                        <div *ngIf="officeTelCentral?.touched || officeTelCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="officeTelCentral.errors?.required"> office Tel Required</div>
+                                            <div *ngIf="officeTelCentral.errors?.pattern">Invalid office Tel</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="mobileCentral">Mobile</label>
+                                        <input class="form-control input-md" #mobileCentral="ngModel" required minlength="10" maxlength="10" pattern="[0-9]{10}"
+                                            id="mobileCentral" name="mobileCentral" type="text" placeholder="Mobile" [(ngModel)]="work.mobileCentral">
+                                        <div *ngIf="mobileCentral?.touched || mobileCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="mobileCentral.errors?.required">Mobile Required</div>
+                                            <div *ngIf="mobileCentral.errors?.pattern">Should have 10 Digits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="emailCentral">Email</label>
+                                        <input class="form-control input-md" #emailCentral="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="emailCentral"
+                                            name="emailCentral" type="text" placeholder="Email" [(ngModel)]="work.emailCentral">
+                                        <div *ngIf="emailCentral?.touched || emailCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="emailCentral.errors?.required">Email Required</div>
+                                            <div *ngIf="emailCentral.errors?.pattern">Invalid Email Address</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='InterState'>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="officeFaxCentral">Office Fax</label>
+                                        <input class="form-control input-md" #officeFaxCentral="ngModel" required id="officeFaxCentral" name="officeFaxCentral" type="text"
+                                            placeholder="Office Fax" [(ngModel)]="work.officeFaxCentral">
+                                        <div *ngIf="officeFaxCentral?.touched || officeFaxCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="officeFaxCentral.errors?.required">Office Fax Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="residencePhCentral">Residence Ph</label>
+                                        <input class="form-control input-md" #residencePhCentral="ngModel" required pattern="[0-9]{11}" id="residencePhCentral" name="residencePhCentral"
+                                            type="text" placeholder="Residence Ph" [(ngModel)]="work.residencePhCentral">
+                                        <div *ngIf="residencePhCentral?.touched || residencePhCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="residencePhCentral.errors?.required">Resident Phone Number Required</div>
+                                            <div *ngIf="residencePhCentral.errors?.pattern">Invalid Phone Number</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="residenceAddressCentral">Residence Address</label>
+                                        <textarea class="form-control input-md" #residenceAddressCentral="ngModel" required id="residenceAddressCentral" name="residenceAddressCentral"
+                                            type="text" placeholder="Residence Address" [(ngModel)]="work.residenceAddressCentral"></textarea>
+                                        <div *ngIf="residenceAddressCentral?.touched || residenceAddressCentral?.dirty" class="alert alert-danger">
+                                            <div *ngIf="residenceAddressCentral.errors?.required">Resident Address Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='training'>
+                                <h4>Training</h4>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="nameOfTraining">Name of Training</label>
+                                        <input class="form-control input-md" #nameOfTraining="ngModel" required id="nameOfTraining" name="nameOfTraining" type="text"
+                                            placeholder="Name of Training" [(ngModel)]="work.nameOfTraining">
+                                        <div *ngIf="nameOfTraining?.touched || nameOfTraining?.dirty" class="alert alert-danger">
+                                            <div *ngIf="nameOfTraining.errors?.required"> Name Of Training Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="trainingDuration">Training Duration</label>
+                                        <input class="form-control input-md" #trainingDuration="ngModel" required id="trainingDuration" name="trainingDuration" type="text"
+                                            placeholder="Duration" [(ngModel)]="work.trainingDuration">
+                                        <div *ngIf="trainingDuration?.touched || trainingDuration?.dirty" class="alert alert-danger">
+                                            <div *ngIf="trainingDuration.errors?.required">Training Duration Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="trainingPlace">Training Place</label>
+                                        <input class="form-control input-md" #trainingPlace="ngModel" required id="trainingPlace" name="trainingPlace" type="text"
+                                            placeholder="Place" [(ngModel)]="work.trainingPlace">
+                                        <div *ngIf="trainingPlace?.touched || trainingPlace?.dirty" class="alert alert-danger">
+                                            <div *ngIf="trainingPlace.errors?.required">Training PlaceRequired</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf='leave'>
+                                <h4>Leave</h4>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dateOfStartingLeave">Date of starting leave</label>
+                                        <input class="form-control input-md" #dateOfStartingLeave="ngModel" required id="dateOfStartingLeave" name="dateOfStartingLeave"
+                                            type="date" placeholder="Date of starting leave" [(ngModel)]="work.dateOfStartingLeave">
+                                        <div *ngIf="dateOfStartingLeave?.touched || dateOfStartingLeave?.dirty" class="alert alert-danger">
+                                            <div *ngIf="dateOfStartingLeave.errors?.required">Date of starting leave Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center space-20">
+                        <!-- <button class="btn btn-outline-rounded btn-default" (click)="goToPrevious(workForm)"> <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span> Previous</button> -->
+                        <button class="btn btn-outline-rounded btn-info" [disabled]="!workForm.valid" (click)="goToNext(workForm)"> Submit
+                            <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

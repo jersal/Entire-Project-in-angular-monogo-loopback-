@@ -1,0 +1,122 @@
+{
+  "name": "work",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "workService": {
+      "type": "string"
+    },
+    "cadre": {
+      "type": "string"
+    },
+    "batch": {
+      "type": "string"
+    },
+    "dateOfAllotment": {
+      "type": "string"
+    },
+    "identityNumber": {
+      "type": "string"
+    },
+    "modeOfRecruitment": {
+      "type": "string"
+    },
+    "domicile": {
+      "type": "string"
+    },
+    "motherTongue": {
+      "type": "string"
+    },
+    "scaleOfPay": {
+      "type": "string"
+    },
+    "specialPay": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "nameOfPost": {
+      "type": "string"
+    },
+    "departmentOrPsu": {
+      "type": "string"
+    },
+    "pinCode": {
+      "type": "number"
+    },
+    "officeTel": {
+      "type": "string"
+    },
+    "workMobile": {
+      "type": "number"
+    },
+    "workEmail": {
+      "type": "string"
+    },
+    "officeFax": {
+      "type": "string"
+    },
+    "residencePh": {
+      "type": "string"
+    },
+    "residenceAddress": {
+      "type": "string"
+    },
+    "startCentralDeputation": {
+      "type": "string"
+    },
+    "ministryOrDepartmentOrPsu": {
+      "type": "string"
+    },
+    "nameOfPostCentral": {
+      "type": "string"
+    },
+    "pinCodeCentral": {
+      "type": "number"
+    },
+    "officeTelCentral": {
+      "type": "number"
+    },
+    "mobileCentral": {
+      "type": "number"
+    },
+    "emailCentral": {
+      "type": "string"
+    },
+    "officeFaxCentral": {
+      "type": "string"
+    },
+    "residencePhCentral": {
+      "type": "number"
+    },
+    "residenceAddressCentral": {
+      "type": "string"
+    },
+    "nameOfTraining": {
+      "type": "string"
+    },
+    "trainingDuration": {
+      "type": "string"
+    },
+    "trainingPlace": {
+      "type": "string"
+    },
+    "dateOfStartingLeave": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

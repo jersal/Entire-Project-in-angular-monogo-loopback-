@@ -1,0 +1,124 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "AccessToken": {
+    "dataSource": "asidb",
+    "public": false,
+    "relations": {
+      "application": {
+        "type": "belongsTo",
+        "model": "Application",
+        "foreignKey": "appId"
+      },
+      "user": {
+        "type": "belongsTo",
+        "model": "user",
+        "foreignKey": "userId"
+      }
+    }
+  },
+  "ACL": {
+    "dataSource": "asidb",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "asidb",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "asidb",
+    "public": false
+  },
+  "user": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "personal": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "work": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "spouse": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "dependants": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Container": {
+    "dataSource": "gridfs",
+    "public": true
+  },
+  "education": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "qualification": {
+    "dataSource": null,
+    "public": false
+  },
+  "language": {
+    "dataSource": null,
+    "public": false
+  },
+  "Prefix": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Gender": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Position": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Recruitment": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Service": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Languages": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Grade": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "State": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "Cadre": {
+    "dataSource": "asidb",
+    "public": true
+  },
+  "application": {
+    "dataSource": "asidb",
+    "public": true
+  }
+}
+

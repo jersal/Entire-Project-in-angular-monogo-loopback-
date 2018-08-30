@@ -1,0 +1,28 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/explorer",
+    "generateOperationScopedModels": true
+  },
+  "loopback-component-cas": {
+    "accessUrl":"https://my.access.Url",
+    "serviceTicketTTL": 60000,
+    "loginPage": "/user/userLogin",
+    "logoutPage": "/user/userLogout",
+    "userModel": "user",
+    "attributes": [
+      "authenticationDate",
+      "longTermAuthenticationRequestTokenUsed",
+      "isFromNewLogin",
+      "memberOf",
+      "email",
+      "displayName",
+      "firstname",
+      "lastname",
+      "languages",
+      "userId",
+      "uid"
+    ],
+    "loginCallback": "loginCallback"
+  }
+}
+

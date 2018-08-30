@@ -1,0 +1,12 @@
+the options [host] is not supported
+the options [port] is not supported
+the options [database] is not supported
+the options [name] is not supported
+the options [provider] is not supported
+the options [connector] is not supported
+the options [debug] is not supported
+the options [url] is not supported
+The model "AccessToken" configures "belongsTo User-like models" relation with target model "User". However, the model "User" is not attached to the application and therefore cannot be used by this relation. This typically happens when the application has a custom custom User subclass, but does not fix AccessToken relations to use this new model.
+Learn more at http://ibm.biz/setup-loopback-auth
+Web server listening at: http://localhost:4000
+Browse your REST API at http://localhost:4000/explorer
