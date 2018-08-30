@@ -1,10 +1,10 @@
-import { Component, OnInit }   from '@angular/core';
-import { Router }              from '@angular/router';
-import { Education }            from './education';
-import { ProfileService }     from '../shared/profile.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Education } from './education';
+import { ProfileService } from '../shared/profile.service';
 import { Qualification } from './qualification';
 import { Language } from './language';
-import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 
@@ -19,40 +19,40 @@ export class EducationComponent implements OnInit {
     baseUrl = environment.baseUrl;
     editFlag = false
     editFlagLang = false
-    file_id:string;
-    file_name:string;
+    file_id: string;
+    file_name: string;
     title = 'Education info';
     private qualification: Qualification = new Qualification();
     language: Language = new Language();
     education: Education = new Education()
     form: any;
-    Languages:any[];
-    
-    selectedFile:File = null;
-    private headers = new HttpHeaders().set('Content-Type','application/json');
-    private resume_url:string;
+    Languages: any[];
 
-    constructor(private router: Router, private _profileService: ProfileService,private http:HttpClient) {
+    selectedFile: File = null;
+    private headers = new HttpHeaders().set('Content-Type', 'application/json');
+    private resume_url: string;
+
+    constructor(private router: Router, private _profileService: ProfileService, private http: HttpClient) {
     }
 
     ngOnInit() {
         const id = sessionStorage.getItem('userId');
-        if(!id){
-           this.router.navigate(['/login']); 
+        if (!id) {
+            this.router.navigate(['/login']);
         }
         this.readEducation(id);
-        this.getResume(id); 
+        this.getResume(id);
         this.getLanguagesCombo();
     }
 
-    getLanguagesCombo(){
-        this.http.get<any>(`${this.baseUrl}/api/Languages`, { headers: this.headers})
-        .subscribe(res =>{
-            this.Languages = res;
-        },
-        err =>{
-           alert('error while getiing prefix');
-        }); 
+    getLanguagesCombo() {
+        this.http.get<any>(`${this.baseUrl}/api/Languages`, { headers: this.headers })
+            .subscribe(res => {
+                this.Languages = res;
+            },
+                err => {
+                    alert('error while getiing prefix');
+                });
     }
 
     //uploadfile
@@ -60,200 +60,205 @@ export class EducationComponent implements OnInit {
         const id = sessionStorage.getItem('userId');
         const fd = new FormData();
         this.selectedFile = <File>event.target.files[0];
-        fd.append('file',this.selectedFile,this.selectedFile.name);
+        fd.append('file', this.selectedFile, this.selectedFile.name);
         // this.http.post<File>(`http://localhost:4000/api/users/${id}/uploadDisplayPic`, fd)
         // this.http.post<File>(`${this.baseUrl}/api/containers/resume-${id}/upload`,fd)
         //     .subscribe(res =>{
         //         console.log(res);
         //         this.getResume(id); 
         //     });
-        if(this.selectedFile.type == "application/pdf"){
-            this.http.post<File>(`${this.baseUrl}/api/containers/resume-${id}/upload`,fd)
+        if (this.selectedFile.type == "application/pdf") {
+            this.http.post<File>(`${this.baseUrl}/api/containers/resume-${id}/upload`, fd)
                 .subscribe(res => {
                     console.log(res);
                     this.getResume(id);
                 });
         }
-        else{
-            alert("upload valid pdf format");    
+        else {
+            alert("upload valid pdf format");
         }
     }
 
-    getResume(id){
-        this.http.get<File>(`${this.baseUrl}/api/containers/resume-${id}/files`,{headers:this.headers})
-         .subscribe(res =>{
-             var arr:any = res;
-             if(arr.length == 0){
-                // alert("no resume in your profile"); 
-            }
-            else{
-                
-             this.file_id = arr[arr.length-1]._id;
-             this.file_name = arr[arr.length-1].filename;
+    getResume(id) {
+        this.http.get<File>(`${this.baseUrl}/api/containers/resume-${id}/files`, { headers: this.headers })
+            .subscribe(res => {
+                var arr: any = res;
+                if (arr.length == 0) {
+                    // alert("no resume in your profile"); 
+                }
+                else {
 
-             this.resume_url = `${this.baseUrl}/api/containers/resume-${id}/download/${this.file_id}`;  
-            }
-            
-         },
-         err =>{
-            alert('error'); 
-         }); 
-     }
+                    this.file_id = arr[arr.length - 1]._id;
+                    this.file_name = arr[arr.length - 1].filename;
+
+                    this.resume_url = `${this.baseUrl}/api/containers/resume-${id}/download/${this.file_id}`;
+                }
+
+            },
+                err => {
+                    alert('error');
+                });
+    }
     //language
-    addLanguage(){
-        if(this.isEmpty(this.language)){
+    addLanguage() {
+        if (this.isBlankLang(this.language)) {
             console.log("language is empty")
             return console.log(JSON.stringify(this.language))
 
-        }else{
+        } else {
             console.log("language is not emty")
             this.education.languages.push(this.language)
-        this.language = new Language()
+            this.language = new Language()
         }
     }
 
-    languageEdit(indx){
+    isBlankLang(language) {
+        if (language.lang == null) {
+            return true
+        }
+        else {
+            return false
+        }
+
+    }
+
+
+
+    languageEdit(indx) {
         this.language = this.education.languages[indx]
         this.editFlag = true
     }
 
-    languageDelete(valueToRemove){
-        this.education.languages.splice(valueToRemove,1)
+    languageDelete(valueToRemove) {
+        this.education.languages.splice(valueToRemove, 1)
 
     }
 
-    // isBlank(language){
-    //     if(language.lang != null)
-    //         true
-    //     else
-    //         false
-    // }
 
-    saveChangesLanguage(){
+    saveChangesLanguage() {
         this.language = new Language()
         this.editFlag = false
     }
 
-//Qualifications
-    addQualification(){
-        if(this.isBlank(this.qualification))
-        {
+    //Qualifications
+    addQualification() {
+        if (this.isBlank(this.qualification)) {
             console.log(this.qualification);
             return console.log(JSON.stringify(this.qualification))
 
-        }else{
+        } else {
             console.log("qualification is not emty")
             this.education.qualifications.push(this.qualification)
             this.qualification = new Qualification()
         }
     }
 
-    isBlank(qualification){
-   
-        if (qualification.eduqualification == null ) {
-           return true
-        }else if(qualification.university ==null){
+    isBlank(qualification) {
+
+        if (qualification.eduqualification == null) {
             return true
-        }else if(qualification.institute ==null){
+        } else if (qualification.university == null) {
             return true
-         }else if(qualification.subject ==null){
-             return true
-         }else if(qualification.division ==null){
+        } else if (qualification.institute == null) {
             return true
-        }else if(qualification.year ==null){
+        } else if (qualification.subject == null) {
+            return true
+        } else if (qualification.division == null) {
+            return true
+        } else if (qualification.year == null) {
             return true
         }
-         else {
+        else {
             return false
         }
     }
 
 
-    qualificationEdit(indx){
+    qualificationEdit(indx) {
         this.qualification = this.education.qualifications[indx]
         this.editFlag = true
     }
 
-    qualificationDelete(valueToRemove){
-       this.education.qualifications.splice(valueToRemove,1)
+    qualificationDelete(valueToRemove) {
+        this.education.qualifications.splice(valueToRemove, 1)
     }
 
-    saveChanges(){
+    saveChanges() {
         this.qualification = new Qualification()
         this.editFlag = false
     }
-    
-    
-    qualEmptyCheck:any[];
+
+
+    qualEmptyCheck: any[];
 
     isEmpty(obj) {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
-            this.qualEmptyCheck.push("key");
-            console.log("qualification=" +key);
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
+                this.qualEmptyCheck.push("key");
+            console.log("qualification=" + key);
 
             return false;
         }
         return true;
     }
     //show or hide
-    visible=false;
-    showFlag=true;
-    showQualification(){
-        this.hideFlag=true;
-        this.visible=true;
-        this.showFlag=false;
+    visible = false;
+    showFlag = true;
+    showQualification() {
+        this.hideFlag = true;
+        this.visible = true;
+        this.showFlag = false;
     }
-    hideFlag=false;
-    hideQualification(){
-        this.hideFlag=false;
-        this.visible=false;
-        this.showFlag=true;
+    hideFlag = false;
+    hideQualification() {
+        this.hideFlag = false;
+        this.visible = false;
+        this.showFlag = true;
 
     }
-    showLanguage(){
-        this.hideFlag=true;
-        this.visible=true;
-        this.showFlag=false;
+    showLanguage() {
+        this.hideFlag = true;
+        this.visible = true;
+        this.showFlag = false;
     }
-    hideLanguage(){
-        this.hideFlag=false;
-        this.visible=false;
-        this.showFlag=true;
+    hideLanguage() {
+        this.hideFlag = false;
+        this.visible = false;
+        this.showFlag = true;
 
     }
 
     readEducation(id) {
         this._profileService
-        .readEducation(id)
-        .subscribe(data => {
-             if(!data){
-               this.education = new Education();
-            }
-            else{
-               this.education = data;    
-            }
-           
-           console.log( JSON.stringify(this.education))
+            .readEducation(id)
+            .subscribe(data => {
+                if (!data) {
+                    this.education = new Education();
+                }
+                else {
+                    this.education = data;
+                }
 
-        }, err => {
-            console.log( "Fetch failed in education")
-        })
+                console.log(JSON.stringify(this.education))
+
+            }, err => {
+                console.log("Fetch failed in education")
+            })
     }
 
     save(form: any): any {
         if (!form.valid) {
-           return false;
-       }
-       console.log(JSON.stringify(this.education))
-       const userId = sessionStorage.getItem('userId');
+            return false;
+        }
+        console.log(JSON.stringify(this.education))
+        const userId = sessionStorage.getItem('userId');
         this._profileService.createEducation(userId, this.education).subscribe(
-            data=>{
+            data => {
                 console.log(data);
-            },err=>{
+            }, err => {
                 console.log(err);
             }
-         )
+        )
         return true;
     }
 

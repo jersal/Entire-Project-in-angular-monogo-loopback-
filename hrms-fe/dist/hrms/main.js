@@ -1579,7 +1579,7 @@ var EducationComponent = /** @class */ (function () {
     };
     //language
     EducationComponent.prototype.addLanguage = function () {
-        if (this.isEmpty(this.language)) {
+        if (this.isBlankLang(this.language)) {
             console.log("language is empty");
             return console.log(JSON.stringify(this.language));
         }
@@ -1589,6 +1589,14 @@ var EducationComponent = /** @class */ (function () {
             this.language = new _language__WEBPACK_IMPORTED_MODULE_5__["Language"]();
         }
     };
+    EducationComponent.prototype.isBlankLang = function (language) {
+        if (language.lang == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     EducationComponent.prototype.languageEdit = function (indx) {
         this.language = this.education.languages[indx];
         this.editFlag = true;
@@ -1596,12 +1604,6 @@ var EducationComponent = /** @class */ (function () {
     EducationComponent.prototype.languageDelete = function (valueToRemove) {
         this.education.languages.splice(valueToRemove, 1);
     };
-    // isBlank(language){
-    //     if(language.lang != null)
-    //         true
-    //     else
-    //         false
-    // }
     EducationComponent.prototype.saveChangesLanguage = function () {
         this.language = new _language__WEBPACK_IMPORTED_MODULE_5__["Language"]();
         this.editFlag = false;
